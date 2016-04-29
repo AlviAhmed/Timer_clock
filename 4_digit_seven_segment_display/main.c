@@ -116,4 +116,78 @@ void num_2_on(void){
 	
 } 
 
-void num_3_on
+void num_3_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_3);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_6);
+	PORTC &= ~ (1 << segment_7);
+	
+} 
+
+void num_4_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_3);
+	PORTC &= ~ (1 << segment_6);
+} 
+
+void num_5_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_1);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_6); 
+	PORTC &= ~ (1 << segment_7);
+} 
+
+void num_6_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_1);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_6);
+	PORTC &= ~ (1 << segment_7); 
+	PORTC &= ~ (1 << segment_5);
+} 
+
+void num_7_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_3);
+	PORTC &= ~ (1 << segment_6);
+	
+} 
+
+void num_8_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_3);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_5);
+	PORTC &= ~ (1 << segment_7); 
+	PORTC &= ~ (1 << segment_6);
+} 
+
+void num_9_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_3);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_6);   
+} 
+
+void num_0_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+	PORTC &= ~ (1 << segment_2);
+	PORTC &= ~ (1 << segment_3);
+	PORTC &= ~ (1 << segment_4);
+	PORTC &= ~ (1 << segment_5);
+	PORTC &= ~ (1 << segment_6); 
+	PORTC &= ~ (1 << segment_7);
+}

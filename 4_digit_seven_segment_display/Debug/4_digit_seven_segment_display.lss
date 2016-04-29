@@ -3,27 +3,27 @@
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  000001be  2**0
+  0 .data         00000000  00800100  00800100  000003aa  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000016a  00000000  00000000  00000054  2**1
+  1 .text         00000356  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  000001be  2**0
+  2 .comment      00000030  00000000  00000000  000003aa  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001f0  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000003dc  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  00000230  2**0
+  4 .debug_aranges 000000c0  00000000  00000000  0000041c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000413  00000000  00000000  00000250  2**0
+  5 .debug_info   00000a6c  00000000  00000000  000004dc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000000e2  00000000  00000000  00000663  2**0
+  6 .debug_abbrev 00000126  00000000  00000000  00000f48  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000223  00000000  00000000  00000745  2**0
+  7 .debug_line   0000049b  00000000  00000000  0000106e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  00000968  2**2
+  8 .debug_frame  00000164  00000000  00000000  0000150c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000001c7  00000000  00000000  0000098c  2**0
+  9 .debug_str    0000024d  00000000  00000000  00001670  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000010  00000000  00000000  00000b53  2**0
+ 10 .debug_ranges 000000b0  00000000  00000000  000018bd  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -63,189 +63,696 @@ Disassembly of section .text:
   6e:	d8 e0       	ldi	r29, 0x08	; 8
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
-  74:	0e 94 40 00 	call	0x80	; 0x80 <main>
-  78:	0c 94 b3 00 	jmp	0x166	; 0x166 <_exit>
+  74:	0e 94 b4 00 	call	0x168	; 0x168 <main>
+  78:	0c 94 a9 01 	jmp	0x352	; 0x352 <_exit>
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000080 <main>:
-  
-int main(void)
+00000080 <num_1_on>:
+	
+
+}
+
+void num_1_on(void){ 
+	PORTC &= ~ (1 << segment_3); 
+  80:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_6);	  
+  82:	42 98       	cbi	0x08, 2	; 8
+  84:	08 95       	ret
+
+00000086 <num_2_on>:
+} 
+
+void num_2_on(void){
+	PORTC &= ~ (1 << segment_2);
+  86:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_3); 
+  88:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_4);
+  8a:	44 98       	cbi	0x08, 4	; 8
+	PORTB &= ~ (1 << segment_5); 
+  8c:	2a 98       	cbi	0x05, 2	; 5
+	PORTC &= ~ (1 << segment_7);
+  8e:	40 98       	cbi	0x08, 0	; 8
+  90:	08 95       	ret
+
+00000092 <num_3_on>:
+	
+} 
+
+void num_3_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+  92:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_3);
+  94:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_4);
+  96:	44 98       	cbi	0x08, 4	; 8
+	PORTC &= ~ (1 << segment_6);
+  98:	42 98       	cbi	0x08, 2	; 8
+	PORTC &= ~ (1 << segment_7);
+  9a:	40 98       	cbi	0x08, 0	; 8
+  9c:	08 95       	ret
+
+0000009e <num_4_on>:
+	
+} 
+
+void num_4_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+  9e:	41 98       	cbi	0x08, 1	; 8
+	PORTC &= ~ (1 << segment_4);
+  a0:	44 98       	cbi	0x08, 4	; 8
+	PORTC &= ~ (1 << segment_3);
+  a2:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_6);
+  a4:	42 98       	cbi	0x08, 2	; 8
+  a6:	08 95       	ret
+
+000000a8 <num_5_on>:
+} 
+
+void num_5_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+  a8:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_1);
+  aa:	41 98       	cbi	0x08, 1	; 8
+	PORTC &= ~ (1 << segment_4);
+  ac:	44 98       	cbi	0x08, 4	; 8
+	PORTC &= ~ (1 << segment_6); 
+  ae:	42 98       	cbi	0x08, 2	; 8
+	PORTC &= ~ (1 << segment_7);
+  b0:	40 98       	cbi	0x08, 0	; 8
+  b2:	08 95       	ret
+
+000000b4 <num_6_on>:
+} 
+
+void num_6_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+  b4:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_1);
+  b6:	41 98       	cbi	0x08, 1	; 8
+	PORTC &= ~ (1 << segment_4);
+  b8:	44 98       	cbi	0x08, 4	; 8
+	PORTC &= ~ (1 << segment_6);
+  ba:	42 98       	cbi	0x08, 2	; 8
+	PORTC &= ~ (1 << segment_7); 
+  bc:	40 98       	cbi	0x08, 0	; 8
+	PORTB &= ~ (1 << segment_5);
+  be:	2a 98       	cbi	0x05, 2	; 5
+  c0:	08 95       	ret
+
+000000c2 <num_7_on>:
+} 
+
+void num_7_on(void){
+	
+	PORTC &= ~ (1 << segment_2);
+  c2:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_3);
+  c4:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_6);
+  c6:	42 98       	cbi	0x08, 2	; 8
+  c8:	08 95       	ret
+
+000000ca <num_8_on>:
+	
+} 
+
+void num_8_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+  ca:	41 98       	cbi	0x08, 1	; 8
+	PORTC &= ~ (1 << segment_2);
+  cc:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_3);
+  ce:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_4);
+  d0:	44 98       	cbi	0x08, 4	; 8
+	PORTB &= ~ (1 << segment_5);
+  d2:	2a 98       	cbi	0x05, 2	; 5
+	PORTC &= ~ (1 << segment_7); 
+  d4:	40 98       	cbi	0x08, 0	; 8
+	PORTC &= ~ (1 << segment_6);
+  d6:	42 98       	cbi	0x08, 2	; 8
+  d8:	08 95       	ret
+
+000000da <num_9_on>:
+} 
+
+void num_9_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+  da:	41 98       	cbi	0x08, 1	; 8
+	PORTC &= ~ (1 << segment_2);
+  dc:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_3);
+  de:	45 98       	cbi	0x08, 5	; 8
+	PORTC &= ~ (1 << segment_4);
+  e0:	44 98       	cbi	0x08, 4	; 8
+	PORTC &= ~ (1 << segment_6);   
+  e2:	42 98       	cbi	0x08, 2	; 8
+  e4:	08 95       	ret
+
+000000e6 <num_0_on>:
+} 
+
+void num_0_on(void){
+	
+	PORTC &= ~ (1 << segment_1);
+  e6:	41 98       	cbi	0x08, 1	; 8
+	PORTC &= ~ (1 << segment_2);
+  e8:	43 98       	cbi	0x08, 3	; 8
+	PORTC &= ~ (1 << segment_3);
+  ea:	45 98       	cbi	0x08, 5	; 8
+	
+	PORTB &= ~ (1 << segment_5);
+  ec:	2a 98       	cbi	0x05, 2	; 5
+	PORTC &= ~ (1 << segment_6); 
+  ee:	42 98       	cbi	0x08, 2	; 8
+	PORTC &= ~ (1 << segment_7);
+  f0:	40 98       	cbi	0x08, 0	; 8
+  f2:	08 95       	ret
+
+000000f4 <num_1_off>:
+} 
+ 
+//////////////////////////////////// 
+
+void num_1_off(void){
+	PORTC |= (1 << segment_3);
+  f4:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_6);
+  f6:	42 9a       	sbi	0x08, 2	; 8
+  f8:	08 95       	ret
+
+000000fa <num_2_off>:
+}
+
+void num_2_off(void){ 
+	
+	PORTC |= (1 << segment_2);
+  fa:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_3);
+  fc:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_4);
+  fe:	44 9a       	sbi	0x08, 4	; 8
+	PORTB |= (1 << segment_5);
+ 100:	2a 9a       	sbi	0x05, 2	; 5
+	PORTC |= (1 << segment_7);
+ 102:	40 9a       	sbi	0x08, 0	; 8
+ 104:	08 95       	ret
+
+00000106 <num_3_off>:
+	
+}
+
+void num_3_off(void){
+	
+	PORTC |= (1 << segment_2);
+ 106:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_3);
+ 108:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_4);
+ 10a:	44 9a       	sbi	0x08, 4	; 8
+	PORTC |= (1 << segment_6);
+ 10c:	42 9a       	sbi	0x08, 2	; 8
+	PORTC |= (1 << segment_7);
+ 10e:	40 9a       	sbi	0x08, 0	; 8
+ 110:	08 95       	ret
+
+00000112 <num_4_off>:
+	
+}
+
+void num_4_off(void){
+	
+	PORTC |= (1 << segment_1);
+ 112:	41 9a       	sbi	0x08, 1	; 8
+	PORTC |= (1 << segment_4);
+ 114:	44 9a       	sbi	0x08, 4	; 8
+	PORTC |= (1 << segment_3);
+ 116:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_6);
+ 118:	42 9a       	sbi	0x08, 2	; 8
+ 11a:	08 95       	ret
+
+0000011c <num_5_off>:
+}
+
+void num_5_off(void){
+	
+	PORTC |= (1 << segment_2);
+ 11c:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_1);
+ 11e:	41 9a       	sbi	0x08, 1	; 8
+	PORTC |= (1 << segment_4);
+ 120:	44 9a       	sbi	0x08, 4	; 8
+	PORTC |= (1 << segment_6);
+ 122:	42 9a       	sbi	0x08, 2	; 8
+	PORTC |= (1 << segment_7);
+ 124:	40 9a       	sbi	0x08, 0	; 8
+ 126:	08 95       	ret
+
+00000128 <num_6_off>:
+}
+
+void num_6_off(void){
+	
+	PORTC |= (1 << segment_2);
+ 128:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_1);
+ 12a:	41 9a       	sbi	0x08, 1	; 8
+	PORTC |= (1 << segment_4);
+ 12c:	44 9a       	sbi	0x08, 4	; 8
+	PORTC |= (1 << segment_6);
+ 12e:	42 9a       	sbi	0x08, 2	; 8
+	PORTC |= (1 << segment_7);
+ 130:	40 9a       	sbi	0x08, 0	; 8
+	PORTB |= (1 << segment_5);
+ 132:	2a 9a       	sbi	0x05, 2	; 5
+ 134:	08 95       	ret
+
+00000136 <num_7_off>:
+}
+
+void num_7_off(void){
+	
+	PORTC |= (1 << segment_2);
+ 136:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_3);
+ 138:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_6);
+ 13a:	42 9a       	sbi	0x08, 2	; 8
+ 13c:	08 95       	ret
+
+0000013e <num_8_off>:
+	
+}
+
+void num_8_off(void){
+	
+	PORTC |= (1 << segment_1);
+ 13e:	41 9a       	sbi	0x08, 1	; 8
+	PORTC |= (1 << segment_2);
+ 140:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_3);
+ 142:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_4);
+ 144:	44 9a       	sbi	0x08, 4	; 8
+	PORTB |= (1 << segment_5);
+ 146:	2a 9a       	sbi	0x05, 2	; 5
+	PORTC |= (1 << segment_7);
+ 148:	40 9a       	sbi	0x08, 0	; 8
+	PORTC |= (1 << segment_6);
+ 14a:	42 9a       	sbi	0x08, 2	; 8
+ 14c:	08 95       	ret
+
+0000014e <num_9_off>:
+}
+
+void num_9_off(void){
+	
+	PORTC |= (1 << segment_1);
+ 14e:	41 9a       	sbi	0x08, 1	; 8
+	PORTC |= (1 << segment_2);
+ 150:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_3);
+ 152:	45 9a       	sbi	0x08, 5	; 8
+	PORTC |= (1 << segment_4);
+ 154:	44 9a       	sbi	0x08, 4	; 8
+	PORTC |= (1 << segment_6);
+ 156:	42 9a       	sbi	0x08, 2	; 8
+ 158:	08 95       	ret
+
+0000015a <num_0_off>:
+}
+
+void num_0_off(void){
+	
+	PORTC |= (1 << segment_1);
+ 15a:	41 9a       	sbi	0x08, 1	; 8
+	PORTC |= (1 << segment_2);
+ 15c:	43 9a       	sbi	0x08, 3	; 8
+	PORTC |= (1 << segment_3);
+ 15e:	45 9a       	sbi	0x08, 5	; 8
+	
+	PORTB |= (1 << segment_5);
+ 160:	2a 9a       	sbi	0x05, 2	; 5
+	PORTC |= (1 << segment_6);
+ 162:	42 9a       	sbi	0x08, 2	; 8
+	PORTC |= (1 << segment_7);
+ 164:	40 9a       	sbi	0x08, 0	; 8
+ 166:	08 95       	ret
+
+00000168 <main>:
 {	
 	
-	int n = 10;
+	int n = 10; 
+	int m = 100; 
+	
 	DDRD |= (1 << digit_act1); 
-  80:	50 9a       	sbi	0x0a, 0	; 10
+ 168:	50 9a       	sbi	0x0a, 0	; 10
 	DDRC |= (1 << segment_3);  
-  82:	3d 9a       	sbi	0x07, 5	; 7
+ 16a:	3d 9a       	sbi	0x07, 5	; 7
 	DDRC |= (1 << segment_4);  
-  84:	3c 9a       	sbi	0x07, 4	; 7
+ 16c:	3c 9a       	sbi	0x07, 4	; 7
 	DDRC |= (1 << segment_6);  
-  86:	3a 9a       	sbi	0x07, 2	; 7
+ 16e:	3a 9a       	sbi	0x07, 2	; 7
 	DDRC |= (1 << segment_2); 
-  88:	3b 9a       	sbi	0x07, 3	; 7
+ 170:	3b 9a       	sbi	0x07, 3	; 7
 	DDRC |= (1 << segment_1);    
-  8a:	39 9a       	sbi	0x07, 1	; 7
+ 172:	39 9a       	sbi	0x07, 1	; 7
 	DDRB |= (1 << segment_5);  
-  8c:	22 9a       	sbi	0x04, 2	; 4
+ 174:	22 9a       	sbi	0x04, 2	; 4
 	DDRC |= (1 << segment_7);  
-  8e:	38 9a       	sbi	0x07, 0	; 7
+ 176:	38 9a       	sbi	0x07, 0	; 7
 	
 	PORTC |= (1 << segment_7);
-  90:	40 9a       	sbi	0x08, 0	; 8
+ 178:	40 9a       	sbi	0x08, 0	; 8
 	PORTC |= (1 << segment_6);
-  92:	42 9a       	sbi	0x08, 2	; 8
+ 17a:	42 9a       	sbi	0x08, 2	; 8
 	PORTB |= (1 << segment_5); 
-  94:	2a 9a       	sbi	0x05, 2	; 5
+ 17c:	2a 9a       	sbi	0x05, 2	; 5
 	PORTC |= (1 << segment_4);
-  96:	44 9a       	sbi	0x08, 4	; 8
+ 17e:	44 9a       	sbi	0x08, 4	; 8
 	PORTC |= (1 << segment_3);
-  98:	45 9a       	sbi	0x08, 5	; 8
+ 180:	45 9a       	sbi	0x08, 5	; 8
 	PORTC |= (1 << segment_2);
-  9a:	43 9a       	sbi	0x08, 3	; 8
+ 182:	43 9a       	sbi	0x08, 3	; 8
 	PORTC |= (1 << segment_1);
-  9c:	41 9a       	sbi	0x08, 1	; 8
+ 184:	41 9a       	sbi	0x08, 1	; 8
 	PORTD |= (1 << digit_act1);  
-  9e:	58 9a       	sbi	0x0b, 0	; 11
+ 186:	58 9a       	sbi	0x0b, 0	; 11
 	
 	while (1){ 
 		
 	PORTC &= ~ (1 << segment_1); 
-  a0:	41 98       	cbi	0x08, 1	; 8
+ 188:	41 98       	cbi	0x08, 1	; 8
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  a2:	8f e1       	ldi	r24, 0x1F	; 31
-  a4:	9e e4       	ldi	r25, 0x4E	; 78
-  a6:	01 97       	sbiw	r24, 0x01	; 1
-  a8:	f1 f7       	brne	.-4      	; 0xa6 <main+0x26>
-  aa:	00 c0       	rjmp	.+0      	; 0xac <main+0x2c>
-  ac:	00 00       	nop
+ 18a:	8f e1       	ldi	r24, 0x1F	; 31
+ 18c:	9e e4       	ldi	r25, 0x4E	; 78
+ 18e:	01 97       	sbiw	r24, 0x01	; 1
+ 190:	f1 f7       	brne	.-4      	; 0x18e <main+0x26>
+ 192:	00 c0       	rjmp	.+0      	; 0x194 <main+0x2c>
+ 194:	00 00       	nop
 	_delay_ms(n);
 	PORTC &= ~  (1 << segment_2); 
-  ae:	43 98       	cbi	0x08, 3	; 8
-  b0:	8f e1       	ldi	r24, 0x1F	; 31
-  b2:	9e e4       	ldi	r25, 0x4E	; 78
-  b4:	01 97       	sbiw	r24, 0x01	; 1
-  b6:	f1 f7       	brne	.-4      	; 0xb4 <main+0x34>
-  b8:	00 c0       	rjmp	.+0      	; 0xba <main+0x3a>
-  ba:	00 00       	nop
+ 196:	43 98       	cbi	0x08, 3	; 8
+ 198:	8f e1       	ldi	r24, 0x1F	; 31
+ 19a:	9e e4       	ldi	r25, 0x4E	; 78
+ 19c:	01 97       	sbiw	r24, 0x01	; 1
+ 19e:	f1 f7       	brne	.-4      	; 0x19c <main+0x34>
+ 1a0:	00 c0       	rjmp	.+0      	; 0x1a2 <main+0x3a>
+ 1a2:	00 00       	nop
 	_delay_ms(n);
 	PORTC &= ~ (1 << segment_3);  
-  bc:	45 98       	cbi	0x08, 5	; 8
-  be:	8f e1       	ldi	r24, 0x1F	; 31
-  c0:	9e e4       	ldi	r25, 0x4E	; 78
-  c2:	01 97       	sbiw	r24, 0x01	; 1
-  c4:	f1 f7       	brne	.-4      	; 0xc2 <main+0x42>
-  c6:	00 c0       	rjmp	.+0      	; 0xc8 <main+0x48>
-  c8:	00 00       	nop
+ 1a4:	45 98       	cbi	0x08, 5	; 8
+ 1a6:	8f e1       	ldi	r24, 0x1F	; 31
+ 1a8:	9e e4       	ldi	r25, 0x4E	; 78
+ 1aa:	01 97       	sbiw	r24, 0x01	; 1
+ 1ac:	f1 f7       	brne	.-4      	; 0x1aa <main+0x42>
+ 1ae:	00 c0       	rjmp	.+0      	; 0x1b0 <main+0x48>
+ 1b0:	00 00       	nop
 	_delay_ms(n);
 	 PORTC &= ~ (1 << segment_4);
-  ca:	44 98       	cbi	0x08, 4	; 8
-  cc:	8f e1       	ldi	r24, 0x1F	; 31
-  ce:	9e e4       	ldi	r25, 0x4E	; 78
-  d0:	01 97       	sbiw	r24, 0x01	; 1
-  d2:	f1 f7       	brne	.-4      	; 0xd0 <main+0x50>
-  d4:	00 c0       	rjmp	.+0      	; 0xd6 <main+0x56>
-  d6:	00 00       	nop
+ 1b2:	44 98       	cbi	0x08, 4	; 8
+ 1b4:	8f e1       	ldi	r24, 0x1F	; 31
+ 1b6:	9e e4       	ldi	r25, 0x4E	; 78
+ 1b8:	01 97       	sbiw	r24, 0x01	; 1
+ 1ba:	f1 f7       	brne	.-4      	; 0x1b8 <main+0x50>
+ 1bc:	00 c0       	rjmp	.+0      	; 0x1be <main+0x56>
+ 1be:	00 00       	nop
 	 _delay_ms(n);
 	 PORTB &= ~  (1 << segment_5);
-  d8:	2a 98       	cbi	0x05, 2	; 5
-  da:	8f e1       	ldi	r24, 0x1F	; 31
-  dc:	9e e4       	ldi	r25, 0x4E	; 78
-  de:	01 97       	sbiw	r24, 0x01	; 1
-  e0:	f1 f7       	brne	.-4      	; 0xde <main+0x5e>
-  e2:	00 c0       	rjmp	.+0      	; 0xe4 <main+0x64>
-  e4:	00 00       	nop
+ 1c0:	2a 98       	cbi	0x05, 2	; 5
+ 1c2:	8f e1       	ldi	r24, 0x1F	; 31
+ 1c4:	9e e4       	ldi	r25, 0x4E	; 78
+ 1c6:	01 97       	sbiw	r24, 0x01	; 1
+ 1c8:	f1 f7       	brne	.-4      	; 0x1c6 <main+0x5e>
+ 1ca:	00 c0       	rjmp	.+0      	; 0x1cc <main+0x64>
+ 1cc:	00 00       	nop
 	 _delay_ms(n);
 	 PORTC &= ~ (1 << segment_7); 
-  e6:	40 98       	cbi	0x08, 0	; 8
-  e8:	8f e1       	ldi	r24, 0x1F	; 31
-  ea:	9e e4       	ldi	r25, 0x4E	; 78
-  ec:	01 97       	sbiw	r24, 0x01	; 1
-  ee:	f1 f7       	brne	.-4      	; 0xec <main+0x6c>
-  f0:	00 c0       	rjmp	.+0      	; 0xf2 <main+0x72>
-  f2:	00 00       	nop
+ 1ce:	40 98       	cbi	0x08, 0	; 8
+ 1d0:	8f e1       	ldi	r24, 0x1F	; 31
+ 1d2:	9e e4       	ldi	r25, 0x4E	; 78
+ 1d4:	01 97       	sbiw	r24, 0x01	; 1
+ 1d6:	f1 f7       	brne	.-4      	; 0x1d4 <main+0x6c>
+ 1d8:	00 c0       	rjmp	.+0      	; 0x1da <main+0x72>
+ 1da:	00 00       	nop
 	 _delay_ms(n);
 	 PORTC &= ~ (1 << segment_6); 
-  f4:	42 98       	cbi	0x08, 2	; 8
-  f6:	8f e1       	ldi	r24, 0x1F	; 31
-  f8:	9e e4       	ldi	r25, 0x4E	; 78
-  fa:	01 97       	sbiw	r24, 0x01	; 1
-  fc:	f1 f7       	brne	.-4      	; 0xfa <main+0x7a>
-  fe:	00 c0       	rjmp	.+0      	; 0x100 <main+0x80>
- 100:	00 00       	nop
+ 1dc:	42 98       	cbi	0x08, 2	; 8
+ 1de:	8f e1       	ldi	r24, 0x1F	; 31
+ 1e0:	9e e4       	ldi	r25, 0x4E	; 78
+ 1e2:	01 97       	sbiw	r24, 0x01	; 1
+ 1e4:	f1 f7       	brne	.-4      	; 0x1e2 <main+0x7a>
+ 1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <main+0x80>
+ 1e8:	00 00       	nop
 	 _delay_ms(n);
 	 PORTC |= (1 << segment_1);
- 102:	41 9a       	sbi	0x08, 1	; 8
- 104:	8f e1       	ldi	r24, 0x1F	; 31
- 106:	9e e4       	ldi	r25, 0x4E	; 78
- 108:	01 97       	sbiw	r24, 0x01	; 1
- 10a:	f1 f7       	brne	.-4      	; 0x108 <main+0x88>
- 10c:	00 c0       	rjmp	.+0      	; 0x10e <main+0x8e>
- 10e:	00 00       	nop
+ 1ea:	41 9a       	sbi	0x08, 1	; 8
+ 1ec:	8f e1       	ldi	r24, 0x1F	; 31
+ 1ee:	9e e4       	ldi	r25, 0x4E	; 78
+ 1f0:	01 97       	sbiw	r24, 0x01	; 1
+ 1f2:	f1 f7       	brne	.-4      	; 0x1f0 <main+0x88>
+ 1f4:	00 c0       	rjmp	.+0      	; 0x1f6 <main+0x8e>
+ 1f6:	00 00       	nop
 	 _delay_ms(n);
 	 PORTC |= (1 << segment_2);
- 110:	43 9a       	sbi	0x08, 3	; 8
- 112:	8f e1       	ldi	r24, 0x1F	; 31
- 114:	9e e4       	ldi	r25, 0x4E	; 78
- 116:	01 97       	sbiw	r24, 0x01	; 1
- 118:	f1 f7       	brne	.-4      	; 0x116 <main+0x96>
- 11a:	00 c0       	rjmp	.+0      	; 0x11c <main+0x9c>
- 11c:	00 00       	nop
+ 1f8:	43 9a       	sbi	0x08, 3	; 8
+ 1fa:	8f e1       	ldi	r24, 0x1F	; 31
+ 1fc:	9e e4       	ldi	r25, 0x4E	; 78
+ 1fe:	01 97       	sbiw	r24, 0x01	; 1
+ 200:	f1 f7       	brne	.-4      	; 0x1fe <main+0x96>
+ 202:	00 c0       	rjmp	.+0      	; 0x204 <main+0x9c>
+ 204:	00 00       	nop
 	 _delay_ms(n);
 	PORTC |= (1 << segment_3);
- 11e:	45 9a       	sbi	0x08, 5	; 8
- 120:	8f e1       	ldi	r24, 0x1F	; 31
- 122:	9e e4       	ldi	r25, 0x4E	; 78
- 124:	01 97       	sbiw	r24, 0x01	; 1
- 126:	f1 f7       	brne	.-4      	; 0x124 <main+0xa4>
- 128:	00 c0       	rjmp	.+0      	; 0x12a <main+0xaa>
- 12a:	00 00       	nop
+ 206:	45 9a       	sbi	0x08, 5	; 8
+ 208:	8f e1       	ldi	r24, 0x1F	; 31
+ 20a:	9e e4       	ldi	r25, 0x4E	; 78
+ 20c:	01 97       	sbiw	r24, 0x01	; 1
+ 20e:	f1 f7       	brne	.-4      	; 0x20c <main+0xa4>
+ 210:	00 c0       	rjmp	.+0      	; 0x212 <main+0xaa>
+ 212:	00 00       	nop
 	 _delay_ms(n);
 	 PORTC |= (1 << segment_4);
- 12c:	44 9a       	sbi	0x08, 4	; 8
- 12e:	8f e1       	ldi	r24, 0x1F	; 31
- 130:	9e e4       	ldi	r25, 0x4E	; 78
- 132:	01 97       	sbiw	r24, 0x01	; 1
- 134:	f1 f7       	brne	.-4      	; 0x132 <main+0xb2>
- 136:	00 c0       	rjmp	.+0      	; 0x138 <main+0xb8>
- 138:	00 00       	nop
+ 214:	44 9a       	sbi	0x08, 4	; 8
+ 216:	8f e1       	ldi	r24, 0x1F	; 31
+ 218:	9e e4       	ldi	r25, 0x4E	; 78
+ 21a:	01 97       	sbiw	r24, 0x01	; 1
+ 21c:	f1 f7       	brne	.-4      	; 0x21a <main+0xb2>
+ 21e:	00 c0       	rjmp	.+0      	; 0x220 <main+0xb8>
+ 220:	00 00       	nop
 	 _delay_ms(n);
 	 PORTB |= (1 << segment_5);
- 13a:	2a 9a       	sbi	0x05, 2	; 5
- 13c:	8f e1       	ldi	r24, 0x1F	; 31
- 13e:	9e e4       	ldi	r25, 0x4E	; 78
- 140:	01 97       	sbiw	r24, 0x01	; 1
- 142:	f1 f7       	brne	.-4      	; 0x140 <main+0xc0>
- 144:	00 c0       	rjmp	.+0      	; 0x146 <main+0xc6>
- 146:	00 00       	nop
+ 222:	2a 9a       	sbi	0x05, 2	; 5
+ 224:	8f e1       	ldi	r24, 0x1F	; 31
+ 226:	9e e4       	ldi	r25, 0x4E	; 78
+ 228:	01 97       	sbiw	r24, 0x01	; 1
+ 22a:	f1 f7       	brne	.-4      	; 0x228 <main+0xc0>
+ 22c:	00 c0       	rjmp	.+0      	; 0x22e <main+0xc6>
+ 22e:	00 00       	nop
 	 _delay_ms(n);
 	PORTC |= (1 << segment_7); 
- 148:	40 9a       	sbi	0x08, 0	; 8
- 14a:	8f e1       	ldi	r24, 0x1F	; 31
- 14c:	9e e4       	ldi	r25, 0x4E	; 78
- 14e:	01 97       	sbiw	r24, 0x01	; 1
- 150:	f1 f7       	brne	.-4      	; 0x14e <main+0xce>
- 152:	00 c0       	rjmp	.+0      	; 0x154 <main+0xd4>
- 154:	00 00       	nop
+ 230:	40 9a       	sbi	0x08, 0	; 8
+ 232:	8f e1       	ldi	r24, 0x1F	; 31
+ 234:	9e e4       	ldi	r25, 0x4E	; 78
+ 236:	01 97       	sbiw	r24, 0x01	; 1
+ 238:	f1 f7       	brne	.-4      	; 0x236 <main+0xce>
+ 23a:	00 c0       	rjmp	.+0      	; 0x23c <main+0xd4>
+ 23c:	00 00       	nop
 	_delay_ms(n); 
 	PORTC |= (1 << segment_6); 
- 156:	42 9a       	sbi	0x08, 2	; 8
- 158:	8f e1       	ldi	r24, 0x1F	; 31
- 15a:	9e e4       	ldi	r25, 0x4E	; 78
- 15c:	01 97       	sbiw	r24, 0x01	; 1
- 15e:	f1 f7       	brne	.-4      	; 0x15c <main+0xdc>
- 160:	00 c0       	rjmp	.+0      	; 0x162 <main+0xe2>
- 162:	00 00       	nop
- 164:	9d cf       	rjmp	.-198    	; 0xa0 <main+0x20>
+ 23e:	42 9a       	sbi	0x08, 2	; 8
+ 240:	8f e1       	ldi	r24, 0x1F	; 31
+ 242:	9e e4       	ldi	r25, 0x4E	; 78
+ 244:	01 97       	sbiw	r24, 0x01	; 1
+ 246:	f1 f7       	brne	.-4      	; 0x244 <main+0xdc>
+ 248:	00 c0       	rjmp	.+0      	; 0x24a <main+0xe2>
+ 24a:	00 00       	nop
+	_delay_ms(n); 
+	
+	///////////////////// 
+	
+	num_1_on(); 
+ 24c:	0e 94 40 00 	call	0x80	; 0x80 <num_1_on>
+ 250:	9f ef       	ldi	r25, 0xFF	; 255
+ 252:	20 e7       	ldi	r18, 0x70	; 112
+ 254:	82 e0       	ldi	r24, 0x02	; 2
+ 256:	91 50       	subi	r25, 0x01	; 1
+ 258:	20 40       	sbci	r18, 0x00	; 0
+ 25a:	80 40       	sbci	r24, 0x00	; 0
+ 25c:	e1 f7       	brne	.-8      	; 0x256 <main+0xee>
+ 25e:	00 c0       	rjmp	.+0      	; 0x260 <main+0xf8>
+ 260:	00 00       	nop
+	_delay_ms(m); 
+	num_1_off();
+ 262:	0e 94 7a 00 	call	0xf4	; 0xf4 <num_1_off>
+	
+	num_2_on();
+ 266:	0e 94 43 00 	call	0x86	; 0x86 <num_2_on>
+ 26a:	9f ef       	ldi	r25, 0xFF	; 255
+ 26c:	20 e7       	ldi	r18, 0x70	; 112
+ 26e:	82 e0       	ldi	r24, 0x02	; 2
+ 270:	91 50       	subi	r25, 0x01	; 1
+ 272:	20 40       	sbci	r18, 0x00	; 0
+ 274:	80 40       	sbci	r24, 0x00	; 0
+ 276:	e1 f7       	brne	.-8      	; 0x270 <main+0x108>
+ 278:	00 c0       	rjmp	.+0      	; 0x27a <main+0x112>
+ 27a:	00 00       	nop
+	_delay_ms(m);
+	num_2_off(); 
+ 27c:	0e 94 7d 00 	call	0xfa	; 0xfa <num_2_off>
+	
+	
+	num_3_on();
+ 280:	0e 94 49 00 	call	0x92	; 0x92 <num_3_on>
+ 284:	9f ef       	ldi	r25, 0xFF	; 255
+ 286:	20 e7       	ldi	r18, 0x70	; 112
+ 288:	82 e0       	ldi	r24, 0x02	; 2
+ 28a:	91 50       	subi	r25, 0x01	; 1
+ 28c:	20 40       	sbci	r18, 0x00	; 0
+ 28e:	80 40       	sbci	r24, 0x00	; 0
+ 290:	e1 f7       	brne	.-8      	; 0x28a <main+0x122>
+ 292:	00 c0       	rjmp	.+0      	; 0x294 <main+0x12c>
+ 294:	00 00       	nop
+	_delay_ms(m);
+	num_3_off();
+ 296:	0e 94 83 00 	call	0x106	; 0x106 <num_3_off>
+	
+	
+	num_4_on();
+ 29a:	0e 94 4f 00 	call	0x9e	; 0x9e <num_4_on>
+ 29e:	9f ef       	ldi	r25, 0xFF	; 255
+ 2a0:	20 e7       	ldi	r18, 0x70	; 112
+ 2a2:	82 e0       	ldi	r24, 0x02	; 2
+ 2a4:	91 50       	subi	r25, 0x01	; 1
+ 2a6:	20 40       	sbci	r18, 0x00	; 0
+ 2a8:	80 40       	sbci	r24, 0x00	; 0
+ 2aa:	e1 f7       	brne	.-8      	; 0x2a4 <main+0x13c>
+ 2ac:	00 c0       	rjmp	.+0      	; 0x2ae <main+0x146>
+ 2ae:	00 00       	nop
+	_delay_ms(m);
+	num_4_off();
+ 2b0:	0e 94 89 00 	call	0x112	; 0x112 <num_4_off>
+ 
 
-00000166 <_exit>:
- 166:	f8 94       	cli
+	num_5_on();
+ 2b4:	0e 94 54 00 	call	0xa8	; 0xa8 <num_5_on>
+ 2b8:	9f ef       	ldi	r25, 0xFF	; 255
+ 2ba:	20 e7       	ldi	r18, 0x70	; 112
+ 2bc:	82 e0       	ldi	r24, 0x02	; 2
+ 2be:	91 50       	subi	r25, 0x01	; 1
+ 2c0:	20 40       	sbci	r18, 0x00	; 0
+ 2c2:	80 40       	sbci	r24, 0x00	; 0
+ 2c4:	e1 f7       	brne	.-8      	; 0x2be <main+0x156>
+ 2c6:	00 c0       	rjmp	.+0      	; 0x2c8 <main+0x160>
+ 2c8:	00 00       	nop
+	_delay_ms(m);
+	num_5_off();
+ 2ca:	0e 94 8e 00 	call	0x11c	; 0x11c <num_5_off>
+	
+	
+	num_6_on();
+ 2ce:	0e 94 5a 00 	call	0xb4	; 0xb4 <num_6_on>
+ 2d2:	9f ef       	ldi	r25, 0xFF	; 255
+ 2d4:	20 e7       	ldi	r18, 0x70	; 112
+ 2d6:	82 e0       	ldi	r24, 0x02	; 2
+ 2d8:	91 50       	subi	r25, 0x01	; 1
+ 2da:	20 40       	sbci	r18, 0x00	; 0
+ 2dc:	80 40       	sbci	r24, 0x00	; 0
+ 2de:	e1 f7       	brne	.-8      	; 0x2d8 <main+0x170>
+ 2e0:	00 c0       	rjmp	.+0      	; 0x2e2 <main+0x17a>
+ 2e2:	00 00       	nop
+	_delay_ms(m);
+	num_6_off();
+ 2e4:	0e 94 94 00 	call	0x128	; 0x128 <num_6_off>
 
-00000168 <__stop_program>:
- 168:	ff cf       	rjmp	.-2      	; 0x168 <__stop_program>
+	
+	num_7_on();
+ 2e8:	0e 94 61 00 	call	0xc2	; 0xc2 <num_7_on>
+ 2ec:	9f ef       	ldi	r25, 0xFF	; 255
+ 2ee:	20 e7       	ldi	r18, 0x70	; 112
+ 2f0:	82 e0       	ldi	r24, 0x02	; 2
+ 2f2:	91 50       	subi	r25, 0x01	; 1
+ 2f4:	20 40       	sbci	r18, 0x00	; 0
+ 2f6:	80 40       	sbci	r24, 0x00	; 0
+ 2f8:	e1 f7       	brne	.-8      	; 0x2f2 <main+0x18a>
+ 2fa:	00 c0       	rjmp	.+0      	; 0x2fc <main+0x194>
+ 2fc:	00 00       	nop
+	_delay_ms(m);
+	num_7_off();
+ 2fe:	0e 94 9b 00 	call	0x136	; 0x136 <num_7_off>
+ 
+	
+	num_8_on();
+ 302:	0e 94 65 00 	call	0xca	; 0xca <num_8_on>
+ 306:	9f ef       	ldi	r25, 0xFF	; 255
+ 308:	20 e7       	ldi	r18, 0x70	; 112
+ 30a:	82 e0       	ldi	r24, 0x02	; 2
+ 30c:	91 50       	subi	r25, 0x01	; 1
+ 30e:	20 40       	sbci	r18, 0x00	; 0
+ 310:	80 40       	sbci	r24, 0x00	; 0
+ 312:	e1 f7       	brne	.-8      	; 0x30c <main+0x1a4>
+ 314:	00 c0       	rjmp	.+0      	; 0x316 <main+0x1ae>
+ 316:	00 00       	nop
+	_delay_ms(m);
+	num_8_off();
+ 318:	0e 94 9f 00 	call	0x13e	; 0x13e <num_8_off>
+
+	
+	num_9_on();
+ 31c:	0e 94 6d 00 	call	0xda	; 0xda <num_9_on>
+ 320:	9f ef       	ldi	r25, 0xFF	; 255
+ 322:	20 e7       	ldi	r18, 0x70	; 112
+ 324:	82 e0       	ldi	r24, 0x02	; 2
+ 326:	91 50       	subi	r25, 0x01	; 1
+ 328:	20 40       	sbci	r18, 0x00	; 0
+ 32a:	80 40       	sbci	r24, 0x00	; 0
+ 32c:	e1 f7       	brne	.-8      	; 0x326 <main+0x1be>
+ 32e:	00 c0       	rjmp	.+0      	; 0x330 <main+0x1c8>
+ 330:	00 00       	nop
+	_delay_ms(m);
+	num_9_off();
+ 332:	0e 94 a7 00 	call	0x14e	; 0x14e <num_9_off>
+	
+	
+	num_0_on();
+ 336:	0e 94 73 00 	call	0xe6	; 0xe6 <num_0_on>
+ 33a:	9f ef       	ldi	r25, 0xFF	; 255
+ 33c:	20 e7       	ldi	r18, 0x70	; 112
+ 33e:	82 e0       	ldi	r24, 0x02	; 2
+ 340:	91 50       	subi	r25, 0x01	; 1
+ 342:	20 40       	sbci	r18, 0x00	; 0
+ 344:	80 40       	sbci	r24, 0x00	; 0
+ 346:	e1 f7       	brne	.-8      	; 0x340 <main+0x1d8>
+ 348:	00 c0       	rjmp	.+0      	; 0x34a <main+0x1e2>
+ 34a:	00 00       	nop
+	_delay_ms(m);
+	num_0_off();
+ 34c:	0e 94 ad 00 	call	0x15a	; 0x15a <num_0_off>
+
+	
+
+	
+	}
+ 350:	1b cf       	rjmp	.-458    	; 0x188 <main+0x20>
+
+00000352 <_exit>:
+ 352:	f8 94       	cli
+
+00000354 <__stop_program>:
+ 354:	ff cf       	rjmp	.-2      	; 0x354 <__stop_program>

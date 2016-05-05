@@ -5,7 +5,7 @@
  * Author : Alvi
  */ 
 
-#define F_CPU 8000000UL
+#define F_CPU 16000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/delay.h>
@@ -79,45 +79,28 @@ int main(void)
 	PORTD &= ~ (1 << latchwire); 
 	PORTD &= ~ (1 << clockwire);
 	
-	PORTD |= (1 << datawire);
-	for (i = 0; i < 2; i ++){
-		PORTD ^=  (1 << clockwire);
-		_delay_ms(100);
-	}
+		TCCR1B |= (1 << WGM12); 
+		TIMSK1 |= (1 << OCIE1A); 
+		sei(); 
+		OCR1A = 31.25; 
+		TCCR1B |= ((1 << CS10) | (1 << CS11)); // 256 prescaler 
+		while(1){
+			
+		}
 	
-	PORTD &= ~ (1 << datawire); 
-	PORTD &= ~ (1 << clockwire);
-	PORTD |= (1 << latchwire);
+} 
 
+ISR (TIMER1_COMPA_vect){
+	PORTD ^= (1 << digit_act1); 
+	PORTD ^= (1 << digit_act2); 
+	PORTD ^= (1 << digit_act3); 
+	PORTD ^= (1 << digit_act4);
 	
-		
-	while (1){   
-	
-	
-		
-		
-		
-		
-	/*	
-	PORTD |= (1 << digit_act1);  
-	animation();	 
-	PORTD &= ~ (1 << digit_act1);  
-	PORTD |= (1 << digit_act2); 
-	animation();
-	PORTD &= ~ (1 << digit_act2);  
-	PORTD |= (1 << digit_act3);
-	animation(); 
-	PORTD &= ~ (1 << digit_act3); 
-	PORTD |= (1 << digit_act4); 
-	animation(); 
-	PORTD &= ~ (1 << digit_act4); 
-	*/	 
-	
-	}
-	 
-
-
+	num_1_tog();
 }
+
+
+
 
 void num_1_tog(void){
 	PORTC ^= (1 << segment_3);

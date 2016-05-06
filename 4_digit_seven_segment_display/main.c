@@ -77,25 +77,45 @@ int main(void)
  
 	PORTD &= ~ (1 << datawire);
 	PORTD &= ~ (1 << latchwire); 
-	PORTD &= ~ (1 << clockwire);
+	PORTD &= ~ (1 << clockwire); 
+
 	
 		TCCR1B |= (1 << WGM12); 
 		TIMSK1 |= (1 << OCIE1A); 
 		sei(); 
-		OCR1A = 31.25; 
-		TCCR1B |= ((1 << CS10) | (1 << CS11)); // 256 prescaler 
-		while(1){
+		OCR1A = 312.5; 
+		TCCR1B |= ((1 << CS10) | (1 << CS11)); // 256 prescaler  
+		int rows = 0; 
+		int cols = 0;
+		int num[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4}}; 
+		int num_num = 0; 
+		int dig_num = 0; 
+		int *ptrnum = &num_num; 
+		int *ptrdig = &dig_num; 
+		int ar_num = (sizeof(num) / sizeof(int)) / 4;
+		while(1){ //Apparently if no while loop the ISR doesn't work
 			
-		}
+			for (rows = 0; rows < ar_num; rows ++){
+				for (cols = 0; cols < 4; cols++ ){
+					num_num = num[rows][cols]; 
+					dig_num = rows + 1; 	
+				
+				}
+			}
+			
+			
+		}	
+			
+}
+
 	
-} 
+
 
 ISR (TIMER1_COMPA_vect){
-	PORTD ^= (1 << digit_act1); 
-	PORTD ^= (1 << digit_act2); 
-	PORTD ^= (1 << digit_act3); 
-	PORTD ^= (1 << digit_act4);
-	
+		PORTD ^= (1 << digit_act1);
+		PORTD ^= (1 << digit_act2);
+		PORTD ^= (1 << digit_act3);
+		PORTD ^= (1 << digit_act4);
 	num_1_tog();
 }
 

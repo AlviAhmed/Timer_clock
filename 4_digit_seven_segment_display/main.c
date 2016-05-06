@@ -43,12 +43,21 @@
 #define datawire PD5 
 #define latchwire PD6 
 #define clockwire PD7
+int count = 0; 
+int num[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4}}; 
+int size_row = ((sizeof(num) / sizeof(int)) / 4) - 1;    
+int entries_row = ((sizeof(num) / sizeof(int)) / 4) - 1;    
+int size_col = 3;
+int arb = 0; 
+int arb2 = 0;
+int rows = 0;
+int cols = 0;
+int entries_col = 3;
+int time_counter = 0; 
 
-  
+ 
 int main(void)
 {	
-	
- int i;
 	
 	DDRD |= (1 << digit_act1);  
 	DDRD |= (1 << digit_act2);
@@ -84,29 +93,14 @@ int main(void)
 		TCCR1B |= (1 << WGM12); 
 		TIMSK1 |= (1 << OCIE1A); 
 		sei(); 
-		OCR1A = 312.5; 
+		OCR1A = 31.25; 
 		TCCR1B |= ((1 << CS10) | (1 << CS11)); // 256 prescaler  
-		 int rows = 0; 
-		 int cols = 0;
-		 int num[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4}}; 
-		 int *num_num = 0; 
-		 int *dig_num = 0;  
-		 int *check = 0;
-		 int ar_num = (sizeof(num) / sizeof(int)) / 4; 
+		
+	
 		
 		while(1){ //Apparently if no infinite loop the ISR doesn't work
-			/*
-			for (rows = 0; rows < ar_num; rows ++){
-				for (cols = 0; cols < 4; cols++ ){
-					*num_num = num[rows][cols];
-					*dig_num = rows + 1; 
-					if (*check){
-						continue;
-					}
-					
-				}
-			}
-			*/	
+			
+			
 		}	
 			
 }
@@ -115,33 +109,206 @@ int main(void)
 
 
 ISR (TIMER1_COMPA_vect){ 
-	int bool1 = 0; 
-	int bool2 = 0; 
-	int bool3 = 0; 
-	int bool4 = 0;
-	
-	if ( bool1 == 0){
-		PORTD ^= (1 << digit_act1); 
-		num_1_tog();
-	}
-	
-			
-	
-	
-	 
+
+	logic_func(num);
 	/*
 		PORTD ^= (1 << digit_act1);
 		PORTD ^= (1 << digit_act2);
 		PORTD ^= (1 << digit_act3);
 		PORTD ^= (1 << digit_act4);
 	num_1_tog(); 
-	*/
+	*/  
+	time_counter ++; 
+
+	if (time_counter >= 1000){ 
+		arb++; 
+		time_counter = 0;
+		if (arb > 3){ arb = 0; }
+	}
+	
 }
 
-
-
-
-
+void logic_func( int number[][4]){
+	
+	if ( arb <= 3){ 
+		if (arb2 <= 3){  
+			//Determining whether or not to switch on the first digit
+			if (  (arb2 == 0) ){
+				PORTD |= (1 << digit_act1); } else {PORTD &= ~ (1 << digit_act1);}
+			//Determining whether or not to switch on the first digit
+			if (  (arb2 == 1) ){
+				PORTD |= (1 << digit_act2); } else {PORTD &= ~ (1 << digit_act2);}
+			//Determining whether or not to switch on the first digit
+			if (  (arb2 == 2) ){
+				PORTD |= (1 << digit_act3); } else {PORTD &= ~ (1 << digit_act3);}
+			//Determining whether or not to switch on the first digit
+			if (  (arb2 == 3) ){
+				PORTD |= (1 << digit_act4); } else {PORTD &= ~ (1 << digit_act4);}
+			
+			switch (number[arb][arb2]){
+				case 1: 
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();  
+					num_0_off();  
+					num_1_on();
+					arb2++;
+					break;
+				case 2:
+					 
+					num_1_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();
+					num_0_off(); 
+					num_2_on();
+					arb2++;
+					break; 
+				case 3:
+					 
+					num_2_off();
+					num_1_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();
+					num_0_off(); 
+					num_3_on();
+					arb2++;
+					break;
+				case 4:
+					
+					num_2_off();
+					num_3_off();
+					num_1_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();
+					num_0_off(); 
+					num_4_on(); 
+					arb2++;
+					break; 
+				case 5:
+					 
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_1_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();
+					num_0_off(); 
+					num_5_on();
+					arb2++;
+					break;
+				case 6:
+					 
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_1_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();
+					num_0_off(); 
+					num_6_on();
+					arb2++;
+					break;
+				case 7:
+					
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_1_off();
+					num_8_off();
+					num_9_off();
+					num_0_off(); 
+					num_7_on(); 
+					arb2++;
+					break;
+				case 8:
+					 
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_1_off();
+					num_9_off();
+					num_0_off(); 
+					num_8_on();
+					arb2++;
+					break; 
+				case 9:
+					
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_1_off();
+					num_0_off(); 
+					num_9_on(); 
+					arb2++;
+					break;
+				case 0:
+					 
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off();
+					num_1_off(); 
+					num_0_on();
+					arb2++;
+					break;
+				default:  
+					num_0_off(); 
+					num_1_off(); 
+					num_2_off();
+					num_3_off();
+					num_4_off();
+					num_5_off();
+					num_6_off();
+					num_7_off();
+					num_8_off();
+					num_9_off(); 
+					break;
+			} 
+			if (arb2 > 3){
+				arb2 = 0;
+			}
+			
+		
+	}
+				
+	} 
+	
+ 
+} 
 
 void num_1_on(void){ 
 	PORTC &= ~ (1 << segment_3); 
@@ -351,6 +518,71 @@ void num_3_tog(void){
 	
 }
 
+void num_4_tog(void){
+	
+	PORTC ^= (1 << segment_1);
+	PORTC ^= (1 << segment_4);
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_6);
+}
+
+void num_5_tog(void){
+	
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_1);
+	PORTC ^= (1 << segment_4);
+	PORTC ^= (1 << segment_6);
+	PORTC ^= (1 << segment_7);
+}
+
+void num_6_tog(void){
+	
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_1);
+	PORTC ^= (1 << segment_4);
+	PORTC ^= (1 << segment_6);
+	PORTC ^= (1 << segment_7);
+	PORTB ^= (1 << segment_5);
+}
+
+void num_7_tog(void){
+	
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_6);
+	
+}
+
+void num_8_tog(void){
+	
+	PORTC ^= (1 << segment_1);
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_4);
+	PORTB ^= (1 << segment_5);
+	PORTC ^= (1 << segment_7);
+	PORTC ^= (1 << segment_6);
+}
+
+void num_9_tog(void){
+	
+	PORTC ^= (1 << segment_1);
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_4);
+	PORTC ^= (1 << segment_6);
+}
+
+void num_0_tog(void){
+	
+	PORTC ^= (1 << segment_1);
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_3);
+	
+	PORTB ^= (1 << segment_5);
+	PORTC ^= (1 << segment_6);
+	PORTC ^= (1 << segment_7);
+}
 
 
 

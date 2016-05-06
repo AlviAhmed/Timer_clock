@@ -75,9 +75,10 @@ int main(void)
 	PORTC |= (1 << segment_2);
 	PORTC |= (1 << segment_1);
  
-	PORTD &= ~ (1 << datawire);
-	PORTD &= ~ (1 << latchwire); 
-	PORTD &= ~ (1 << clockwire); 
+	PORTD &= ~ (1 << digit_act1);
+	PORTD &= ~ (1 << digit_act2); 
+	PORTD &= ~ (1 << digit_act3); 
+	PORTD &= ~ (1 << digit_act4);
 
 	
 		TCCR1B |= (1 << WGM12); 
@@ -85,47 +86,62 @@ int main(void)
 		sei(); 
 		OCR1A = 312.5; 
 		TCCR1B |= ((1 << CS10) | (1 << CS11)); // 256 prescaler  
-		int rows = 0; 
-		int cols = 0;
-		int num[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4}}; 
-		int num_num = 0; 
-		int dig_num = 0; 
-		int *ptrnum = &num_num; 
-		int *ptrdig = &dig_num; 
-		int ar_num = (sizeof(num) / sizeof(int)) / 4;
-		while(1){ //Apparently if no while loop the ISR doesn't work
-			
+		 int rows = 0; 
+		 int cols = 0;
+		 int num[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4}}; 
+		 int *num_num = 0; 
+		 int *dig_num = 0;  
+		 int *check = 0;
+		 int ar_num = (sizeof(num) / sizeof(int)) / 4; 
+		
+		while(1){ //Apparently if no infinite loop the ISR doesn't work
+			/*
 			for (rows = 0; rows < ar_num; rows ++){
 				for (cols = 0; cols < 4; cols++ ){
-					num_num = num[rows][cols]; 
-					dig_num = rows + 1; 	
-				
+					*num_num = num[rows][cols];
+					*dig_num = rows + 1; 
+					if (*check){
+						continue;
+					}
+					
 				}
 			}
-			
-			
+			*/	
 		}	
 			
 }
 
+
+
+
+ISR (TIMER1_COMPA_vect){ 
+	int bool1 = 0; 
+	int bool2 = 0; 
+	int bool3 = 0; 
+	int bool4 = 0;
 	
-
-
-ISR (TIMER1_COMPA_vect){
+	if ( bool1 == 0){
+		PORTD ^= (1 << digit_act1); 
+		num_1_tog();
+	}
+	
+			
+	
+	
+	 
+	/*
 		PORTD ^= (1 << digit_act1);
 		PORTD ^= (1 << digit_act2);
 		PORTD ^= (1 << digit_act3);
 		PORTD ^= (1 << digit_act4);
-	num_1_tog();
+	num_1_tog(); 
+	*/
 }
 
 
 
 
-void num_1_tog(void){
-	PORTC ^= (1 << segment_3);
-	PORTC ^= (1 << segment_6);
-}
+
 
 void num_1_on(void){ 
 	PORTC &= ~ (1 << segment_3); 
@@ -308,7 +324,38 @@ void num_0_off(void){
 	PORTB |= (1 << segment_5);
 	PORTC |= (1 << segment_6);
 	PORTC |= (1 << segment_7);
-} 
+}  
+
+
+void num_1_tog(void){
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_6);
+}
+
+void num_2_tog(void){
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_4);
+	PORTB ^= (1 << segment_5);
+	PORTC ^= (1 << segment_7);
+	
+}
+
+void num_3_tog(void){
+	
+	PORTC ^= (1 << segment_2);
+	PORTC ^= (1 << segment_3);
+	PORTC ^= (1 << segment_4);
+	PORTC ^= (1 << segment_6);
+	PORTC ^= (1 << segment_7);
+	
+}
+
+
+
+
+
+
 
 void animation (void){
 		int n = 10;

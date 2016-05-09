@@ -894,14 +894,14 @@ ISR (TIMER1_COMPA_vect){
  596:	95 83       	std	Z+5, r25	; 0x05
  598:	84 83       	std	Z+4, r24	; 0x04
 	}
-	if ( ( num_time[0][2] == 5) && ( num_time[0][3]  == 9) ) {
+	if ( ( num_time[0][2] == 6) && ( num_time[0][3]  == 0) ) {
  59a:	80 91 06 01 	lds	r24, 0x0106
  59e:	90 91 07 01 	lds	r25, 0x0107
- 5a2:	05 97       	sbiw	r24, 0x05	; 5
+ 5a2:	06 97       	sbiw	r24, 0x06	; 6
  5a4:	89 f4       	brne	.+34     	; 0x5c8 <__vector_11+0x76>
  5a6:	80 91 08 01 	lds	r24, 0x0108
  5aa:	90 91 09 01 	lds	r25, 0x0109
- 5ae:	09 97       	sbiw	r24, 0x09	; 9
+ 5ae:	89 2b       	or	r24, r25
  5b0:	59 f4       	brne	.+22     	; 0x5c8 <__vector_11+0x76>
 		num_time[0][2] = 0; 
  5b2:	e2 e0       	ldi	r30, 0x02	; 2

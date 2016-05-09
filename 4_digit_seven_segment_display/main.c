@@ -128,7 +128,7 @@ ISR (TIMER1_COMPA_vect){
 		num_time[0][3] = 0;
 		num_time[0][2]++;
 	}
-	if ( ( num_time[0][2] == 5) && ( num_time[0][3]  == 9) ) {
+	if ( ( num_time[0][2] == 6) && ( num_time[0][3]  == 0) ) {
 		num_time[0][2] = 0; 
 		num_time[0][3] = 0;
 		num_time[0][1] ++;

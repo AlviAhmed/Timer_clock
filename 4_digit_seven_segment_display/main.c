@@ -45,7 +45,7 @@
 #define clockwire PD7
 int count = 0; 
 int num_alarm[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4},{0,0,0,0},{4,4,4,4},{2,0,2,0}};  
-int num_time [][4] = {0,0,0,0};
+int num_time [][4] = {1,3,5,9};
 int size_row = ((sizeof(num_time) / sizeof(int)) / 4) - 1;    
 int entries_row = ((sizeof(num_time) / sizeof(int)) / 4) - 1;    
 int size_col = 3;
@@ -56,7 +56,7 @@ int cols = 0;
 int entries_col = 3;
 int time_count = 0; 
 int isr_count = 0; 
-int tim1 = 0, tim2 = 0, tim3 = 0, tim4 = 0;
+int timsec = 0,tim1 = 0, tim2 = 0, tim3 = 0, tim4 = 0;
 
  
 int main(void)
@@ -96,7 +96,7 @@ int main(void)
 		TCCR1B |= (1 << WGM12); 
 		TIMSK1 |= (1 << OCIE1A); 
 		sei(); 
-		OCR1A = 500; 
+		OCR1A = 800; 
 		TCCR1B |= (1 << CS11); // 8 prescaler  
 		
 	
@@ -116,34 +116,40 @@ ISR (TIMER1_COMPA_vect){
 
 	multiplex_func(num_time); 
 	
-	num_time[0][3]  = tim1;
-	num_time[0][2]  = tim2;
-	num_time[0][1]  = tim3;
-	num_time[0][0]  = tim4;
-	if (tim1 > 9){
-		tim1 = 0;
-		tim2++;
+	/*num_time[0][3]  += tim1;
+	num_time[0][2]  += tim2;
+	num_time[0][1]  += tim3;
+	num_time[0][0]  += tim4; */
+	/*if (timsec > 59){
+		timsec = 0; 
+		num_time[0][3]++;
+	}*/
+	if (num_time[0][3] > 9){
+		num_time[0][3] = 0;
+		num_time[0][2]++;
 	}
-	if ( (tim2 == 5) && (tim1 == 9) ) {
-		tim2 = 0; 
-		tim1 = 0;
-		tim3 ++;
+	if ( ( num_time[0][2] == 5) && ( num_time[0][3]  == 9) ) {
+		num_time[0][2] = 0; 
+		num_time[0][3] = 0;
+		num_time[0][1] ++;
 	}
-	if (tim3 > 9){
-		tim3 = 0;
-		tim4++;
+	if (num_time[0][1] > 9){
+		num_time[0][1] = 0;
+		num_time[0][0]++;
 	}
-	if ( (tim4 == 2) && (tim3 == 4) && (tim2 == 0) && (tim1 == 0) ){
-		tim1 = 0;
-		tim2 = 0;
-		tim3 = 0;
-		tim4 = 0;
+	if ( (num_time[0][0] == 2) && (num_time[0][1] == 4) && (num_time[0][2] == 0) && (num_time[0][3] == 0) ){
+		num_time[0][3] = 0;
+		num_time[0][2] = 0;
+		num_time[0][1] = 0;
+		num_time[0][0] = 0;
 	} 
 
 isr_count ++;
 
-if (isr_count >= 10){
-	tim1++;
+	timsec++;
+if (isr_count >= 1250){
+	//timsec++;
+	num_time[0][3]++;
 	isr_count = 0;
 	
 }
@@ -160,11 +166,6 @@ if (isr_count >= 10){
 	
 } 
 
-void logic_func (int array [][4]){
-		
-		
-	
-}
 
 void multiplex_func( int number[][4]){
 	

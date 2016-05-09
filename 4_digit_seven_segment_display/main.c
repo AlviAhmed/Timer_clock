@@ -44,16 +44,19 @@
 #define latchwire PD6 
 #define clockwire PD7
 int count = 0; 
-int num[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4}}; 
-int size_row = ((sizeof(num) / sizeof(int)) / 4) - 1;    
-int entries_row = ((sizeof(num) / sizeof(int)) / 4) - 1;    
+int num_alarm[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4},{0,0,0,0},{4,4,4,4},{2,0,2,0}};  
+int num_time [][4] = {0,0,0,0};
+int size_row = ((sizeof(num_time) / sizeof(int)) / 4) - 1;    
+int entries_row = ((sizeof(num_time) / sizeof(int)) / 4) - 1;    
 int size_col = 3;
 int arb = 0; 
 int arb2 = 0;
 int rows = 0;
 int cols = 0;
 int entries_col = 3;
-int time_counter = 0; 
+int time_count = 0; 
+int isr_count = 0; 
+int tim1 = 0, tim2 = 0, tim3 = 0, tim4 = 0;
 
  
 int main(void)
@@ -93,13 +96,14 @@ int main(void)
 		TCCR1B |= (1 << WGM12); 
 		TIMSK1 |= (1 << OCIE1A); 
 		sei(); 
-		OCR1A = 31.25; 
-		TCCR1B |= ((1 << CS10) | (1 << CS11)); // 256 prescaler  
+		OCR1A = 500; 
+		TCCR1B |= (1 << CS11); // 8 prescaler  
 		
 	
 		
 		while(1){ //Apparently if no infinite loop the ISR doesn't work
-			
+				
+				
 			
 		}	
 			
@@ -110,28 +114,62 @@ int main(void)
 
 ISR (TIMER1_COMPA_vect){ 
 
-	logic_func(num);
+	multiplex_func(num_time); 
+	
+	num_time[0][3]  = tim1;
+	num_time[0][2]  = tim2;
+	num_time[0][1]  = tim3;
+	num_time[0][0]  = tim4;
+	if (tim1 > 9){
+		tim1 = 0;
+		tim2++;
+	}
+	if ( (tim2 == 5) && (tim1 == 9) ) {
+		tim2 = 0; 
+		tim1 = 0;
+		tim3 ++;
+	}
+	if (tim3 > 9){
+		tim3 = 0;
+		tim4++;
+	}
+	if ( (tim4 == 2) && (tim3 == 4) && (tim2 == 0) && (tim1 == 0) ){
+		tim1 = 0;
+		tim2 = 0;
+		tim3 = 0;
+		tim4 = 0;
+	} 
+
+isr_count ++;
+
+if (isr_count >= 10){
+	tim1++;
+	isr_count = 0;
+	
+}
+	
 	/*
 		PORTD ^= (1 << digit_act1);
 		PORTD ^= (1 << digit_act2);
 		PORTD ^= (1 << digit_act3);
 		PORTD ^= (1 << digit_act4);
 	num_1_tog(); 
-	*/  
-	time_counter ++; 
+	*/   
+	  
+	
+	
+} 
 
-	if (time_counter >= 1000){ 
-		arb++; 
-		time_counter = 0;
-		if (arb > 3){ arb = 0; }
-	}
+void logic_func (int array [][4]){
+		
+		
 	
 }
 
-void logic_func( int number[][4]){
+void multiplex_func( int number[][4]){
 	
-	if ( arb <= 3){ 
-		if (arb2 <= 3){  
+	if ( arb <= entries_row){ 
+		if (arb2 <= entries_col){  
 			//Determining whether or not to switch on the first digit
 			if (  (arb2 == 0) ){
 				PORTD |= (1 << digit_act1); } else {PORTD &= ~ (1 << digit_act1);}
@@ -154,8 +192,8 @@ void logic_func( int number[][4]){
 					num_6_off();
 					num_7_off();
 					num_8_off();
-					num_9_off();  
-					num_0_off();  
+					num_9_off();
+					num_0_off();	
 					num_1_on();
 					arb2++;
 					break;
@@ -298,7 +336,7 @@ void logic_func( int number[][4]){
 					num_9_off(); 
 					break;
 			} 
-			if (arb2 > 3){
+			if (arb2 > entries_col){
 				arb2 = 0;
 			}
 			
@@ -308,7 +346,9 @@ void logic_func( int number[][4]){
 	} 
 	
  
-} 
+}  
+
+
 
 void num_1_on(void){ 
 	PORTC &= ~ (1 << segment_3); 

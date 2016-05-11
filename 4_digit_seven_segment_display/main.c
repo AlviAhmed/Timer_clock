@@ -21,7 +21,6 @@
 #define segment_7 PC0 //Active LOW pin 3
 #define segment_5 PB2 //Active LOW pin 5
 
-#define dotG_semi PB4 //Active LOW pin 13
 
 
 #define digit_act1 PD0 //Active HIGH pin 1 
@@ -32,7 +31,7 @@
 
 #define dotE_act //Active HIGH  pin 1 
 #define dotF_act //Active HIGH  pin 2 
-#define dotG_act //ACtive HIGH pin 4
+#define dotG_act  PB1//ACtive HIGH pin 4
 #define dotH_act //Active HIGH pin 6 
 #define dotJ_act //Active HIGH pin 8 
 
@@ -45,7 +44,7 @@
 #define clockwire PD7
 int count = 0; 
 int num_alarm[][4] = { {0,0,1,1},{0,0,1,2},{1,0,3,3},{1,2,3,4},{0,0,0,0},{4,4,4,4},{2,0,2,0}};  
-int num_time [][4] = {1,3,5,9};
+int num_time [][4] = {0,3,4,4};
 int size_row = ((sizeof(num_time) / sizeof(int)) / 4) - 1;    
 int entries_row = ((sizeof(num_time) / sizeof(int)) / 4) - 1;    
 int size_col = 3;
@@ -57,7 +56,7 @@ int entries_col = 3;
 int time_count = 0; 
 int isr_count = 0; 
 int timsec = 0,tim1 = 0, tim2 = 0, tim3 = 0, tim4 = 0;
-
+int blinker = 0;
  
 int main(void)
 {	
@@ -76,7 +75,8 @@ int main(void)
 	DDRC |= (1 << segment_6);  
 	DDRC |= (1 << segment_2); 
 	DDRC |= (1 << segment_1);    
-	DDRB |= (1 << segment_5);  
+	DDRB |= (1 << segment_5); 
+	DDRB |= (1 << dotG_act);  
 	DDRC |= (1 << segment_7);  
 	
 	PORTC |= (1 << segment_7);
@@ -86,11 +86,13 @@ int main(void)
 	PORTC |= (1 << segment_3);
 	PORTC |= (1 << segment_2);
 	PORTC |= (1 << segment_1);
- 
+	PORTB |= (1 << dotG_act);
+	
 	PORTD &= ~ (1 << digit_act1);
 	PORTD &= ~ (1 << digit_act2); 
 	PORTD &= ~ (1 << digit_act3); 
-	PORTD &= ~ (1 << digit_act4);
+	PORTD &= ~ (1 << digit_act4); 
+	
 
 	
 		TCCR1B |= (1 << WGM12); 
@@ -114,16 +116,24 @@ int main(void)
 
 ISR (TIMER1_COMPA_vect){ 
 
-	multiplex_func(num_time); 
+	blinker ++;
+	if (blinker >= 1250){
+		PORTB ^= (1 << dotG_act); 
+		blinker = 0;
+	} 
+	
+	multiplex_func(num_time);  
+	
+	
 	
 	/*num_time[0][3]  += tim1;
 	num_time[0][2]  += tim2;
 	num_time[0][1]  += tim3;
 	num_time[0][0]  += tim4; */
-	/*if (timsec > 59){
+	if (timsec > 59){
 		timsec = 0; 
 		num_time[0][3]++;
-	}*/
+	}
 	if (num_time[0][3] > 9){
 		num_time[0][3] = 0;
 		num_time[0][2]++;
@@ -146,10 +156,11 @@ ISR (TIMER1_COMPA_vect){
 
 isr_count ++;
 
-	timsec++;
+
 if (isr_count >= 1250){
-	//timsec++;
-	num_time[0][3]++;
+	timsec++; 
+
+	//num_time[0][3]++;
 	isr_count = 0;
 	
 }
